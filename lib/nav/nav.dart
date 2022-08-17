@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:wordy/pages/home.dart';
-import 'package:wordy/pages/wrd_mid.dart';
-import 'package:wordy/pages/wrd_adv.dart';
+import 'package:wordy/pages/urvocab.dart';
+import 'package:wordy/pages/builtinvocab.dart';
 
 class Nav extends StatefulWidget {
   const Nav({Key? key}) : super(key: key);
@@ -20,14 +20,14 @@ class NavState extends State<Nav>{
   }
   static List<Widget> pages = <Widget>[
     const Home(),
-    const WrdMid(),
-    const WrdAdv(),
+    const UrVocab(),
+    const BuiltinVocab()
   ];
   @override
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: const Text("demo"),
+        title: const Text("Wordy"),
       ),
       body: IndexedStack(
         index: pageIdx,
@@ -51,11 +51,11 @@ class NavState extends State<Nav>{
               onTap: () => tap(0),
             ),
             ListTile(
-              title: const Text('4000'),
+              title: const Text('Your Vocabulary'),
               onTap: () => tap(1),
             ),
             ListTile(
-              title: const Text('7000'),
+              title: const Text('Built-in Vocabulary'),
               onTap: () => tap(2),
             ),
           ],
