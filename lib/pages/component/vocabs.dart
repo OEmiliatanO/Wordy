@@ -22,7 +22,6 @@ class VocabPage extends StatelessWidget{
             itemCount: list!.length,
             itemBuilder: (context, index){
               var vocab = list[index];
-              //print(vocab.word);
               return SizedBox(
                 height: 50,
                 child: Card(

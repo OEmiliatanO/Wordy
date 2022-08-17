@@ -5,10 +5,10 @@ import 'package:sqflite/sqflite.dart';
 
 class Vocabulary{
   int id = 0;
-  String word = "", pos = "", trans = "";
+  String word = "", pos = "", trans = "", meaning = "";
   List<String> examples = [];
 
-  Vocabulary(this.id, this.word, this.pos, this.trans, this.examples);
+  Vocabulary(this.id, this.word, this.pos, this.trans, this.meaning, this.examples);
 }// schema
 
 class Db{
@@ -37,13 +37,15 @@ class VocabFactory{
     var db = await Db.accessDatabase();
 
     List<Map<String, dynamic>> maps = await db.rawQuery("select * from vocab");
+    print(maps);
     var list = List.generate(maps.length, (int index) {
       var row = maps[index];
       return Vocabulary(
-        index,
+        row["id"],
         row["word"],
-        row["pos"],
-        row["trans"],
+        row["pos"] ?? "",
+        row["trans"] ?? "",
+        row["meaning"] ?? "",
         [
           row["example1"] ?? "",
           row["example2"] ?? "",
