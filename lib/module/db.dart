@@ -15,7 +15,7 @@ class Db{
   static Future<Database> accessDatabase() async{
     String dbPath = join(await getDatabasesPath(), 'words.sql');
 
-    var exists = await databaseExists(dbPath);
+    var exists = false;
     if (!exists)
     {
       try {
@@ -37,7 +37,6 @@ class VocabFactory{
     var db = await Db.accessDatabase();
 
     List<Map<String, dynamic>> maps = await db.rawQuery("select * from vocab");
-    print(maps);
     var list = List.generate(maps.length, (int index) {
       var row = maps[index];
       return Vocabulary(
