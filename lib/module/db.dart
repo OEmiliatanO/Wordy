@@ -26,34 +26,61 @@ class Db{
       await File(dbPath).writeAsBytes(bytes, flush: true);
 	  }
 
-    var db = await openDatabase(dbPath);
-
-    return db;
+    return await openDatabase(dbPath);
   }
 }
 
-class VocabFactory{
-  Future<List<Vocabulary>> allVocab() async {
-    var db = await Db.accessDatabase();
+class VocabDistributor{
+  // all vocab cache
+  bool dirty = false;
+  bool hasData = false;
+  static List<Vocabulary> list = [];
 
-    List<Map<String, dynamic>> maps = await db.rawQuery("select * from vocab");
-    var list = List.generate(maps.length, (int index) {
-      var row = maps[index];
-      return Vocabulary(
-        row["id"],
-        row["word"],
-        row["pos"] ?? "",
-        row["trans"] ?? "",
-        row["meaning"] ?? "",
-        [
-          row["example1"] ?? "",
-          row["example2"] ?? "",
-          row["example3"] ?? "",
-          row["example4"] ?? "",
-          row["example5"] ?? "",
-        ]
-      );
-    });
+  Future<List<Vocabulary>> getAllVocab() async {
+    if (!hasData || dirty) {
+      var db = await Db.accessDatabase();
+      List<Map<String, dynamic>> allVocab = await db.rawQuery("select * from vocab");
+      list = List.generate(allVocab.length, (int index) {
+        var row = allVocab[index];
+        return Vocabulary(
+            row["id"],
+            row["word"],
+            row["pos"] ?? "",
+            row["trans"] ?? "",
+            row["meaning"] ?? "",
+            [
+              row["example1"] ?? "",
+              row["example2"] ?? "",
+              row["example3"] ?? "",
+              row["example4"] ?? "",
+              row["example5"] ?? "",
+            ]
+        );
+      });
+      hasData = true;
+      dirty = false;
+    }
+
     return list;
+  }
+
+  Future<List<Vocabulary>> search(String target) async{
+    var db = await Db.accessDatabase();
+    List<Map<String, dynamic>> vocabs = await db.rawQuery("select * from vocab where word like $target or trans like $target");
+
+    return List.generate(vocabs.length, (index) {
+      var row = vocabs[index];
+      return Vocabulary(row["id"], row["word"], row["pos"], row["trans"], row["meaning"], row["examples"]);
+    });
+  }
+
+  // TODO: update the database
+  void update(Vocabulary target) async{
+    dirty = true;
+  }
+
+  void flushVocab(){
+    hasData = false;
+    dirty = false;
   }
 }

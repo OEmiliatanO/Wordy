@@ -21,7 +21,7 @@ class NavState extends State<Nav>{
   static List<Widget> pages = <Widget>[
     const Home(),
     const UrVocab(),
-    const BuiltinVocab()
+    const BuiltinVocab(),
   ];
   @override
   Widget build(BuildContext context){

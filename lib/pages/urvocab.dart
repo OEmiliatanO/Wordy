@@ -7,15 +7,27 @@ class UrVocab extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      children: const [
-        Padding(
+      children: [
+        // title
+        const Padding(
           padding: EdgeInsets.fromLTRB(20.0, 10.0, 0, 0),
           child: Text(
             "Your Vocabulary",
-            style: TextStyle(color: Colors.grey, fontSize: 13.0),
+            style: TextStyle(color: Colors.grey, fontSize: 25.0),
           ),
         ),
-        VocabPage(),
+        const VocabPage(),
+        Stack( // add vocabulary Button
+          alignment: Alignment.bottomRight,
+          children: [
+            ElevatedButton.icon(
+              icon: const Icon(Icons.add),
+              label: const Text("新增單字"),
+              // TODO: implement add page
+              onPressed: () { },
+            )
+          ],
+        ),
       ],
     );
   }

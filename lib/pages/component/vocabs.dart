@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:wordy/module/db.dart';
+import 'package:wordy/pages/component/vocabDetail.dart';
 
 class VocabPage extends StatelessWidget{
   const VocabPage({Key? key}) : super(key: key);
 
   Future<List<Vocabulary>> getAllVocab() async{
-    var list = await VocabFactory().allVocab();
-    return list;
+    return await VocabDistributor().getAllVocab();
   }
 
   @override
@@ -22,14 +22,35 @@ class VocabPage extends StatelessWidget{
             itemCount: list!.length,
             itemBuilder: (context, index){
               var vocab = list[index];
-              return SizedBox(
-                height: 50,
-                child: Card(
-                  child: Row(
-                    children: [
-                      Text(vocab.word),
-                      Text(vocab.trans),
-                    ],
+              return GestureDetector(
+                onTap: (){
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => VocabDetailPage(index)));
+                },
+                child: SizedBox(
+                  height: 50,
+                  child: Card(
+                    child: Row(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Text(
+                            vocab.word,
+                            style: const TextStyle(
+                              fontSize: 16
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(left: 10.0),
+                          child: Text(
+                            vocab.trans,
+                            style: const TextStyle(
+                              fontSize: 16
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               );
