@@ -3,10 +3,11 @@ import 'package:wordy/module/db.dart';
 import 'package:wordy/pages/component/vocabDetail.dart';
 
 class VocabPage extends StatelessWidget{
-  const VocabPage({Key? key}) : super(key: key);
+  final String database;
+  const VocabPage({required this.database, Key? key}) : super(key: key);
 
   Future<List<Vocabulary>> getAllVocab() async{
-    return await VocabDistributor().getAllVocab();
+    return await VocabDistributor(database: database).getAllVocab();
   }
 
   @override
@@ -24,7 +25,7 @@ class VocabPage extends StatelessWidget{
               var vocab = list[index];
               return GestureDetector(
                 onTap: (){
-                  Navigator.push(context, MaterialPageRoute(builder: (_) => VocabDetailPage(index)));
+                  Navigator.push(context, MaterialPageRoute(builder: (_) => VocabDetailPage(index, database: database,)));
                 },
                 child: SizedBox(
                   height: 50,
@@ -58,7 +59,17 @@ class VocabPage extends StatelessWidget{
           );
         }
         else{
-          return const Center(child: Text("no data"));
+          return const Padding(
+            padding: EdgeInsets.all(20),
+            child: Center(
+              child: Text(
+                "no vocabulary currently",
+                style: TextStyle(
+                  fontSize: 15,
+                ),
+              )
+            )
+          );
         }
       }
     );

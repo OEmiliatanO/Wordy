@@ -15,6 +15,6 @@ This is the built-in vocabularies page. I will add more words with versioning.
 
 ## the development status now
 - The home page isn't implemented. I think home page can just put a random word picked from built-in vocabularies or client vocabularies.
-- Haven't separate the database now, just for now.
+- ~~Haven't separate the database now, just for now.~~ Have done it.
 - Haven't implemented the "add word" page.
 - the UI need improvement.

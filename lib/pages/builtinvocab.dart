@@ -15,7 +15,7 @@ class BuiltinVocab extends StatelessWidget {
             style: TextStyle(color: Colors.grey, fontSize: 25.0),
           ),
         ),
-        VocabPage(),
+        VocabPage(database: "builtin.sql"),
       ],
     );
   }

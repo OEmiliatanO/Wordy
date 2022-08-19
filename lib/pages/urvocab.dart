@@ -16,7 +16,7 @@ class UrVocab extends StatelessWidget {
             style: TextStyle(color: Colors.grey, fontSize: 25.0),
           ),
         ),
-        const VocabPage(),
+        const VocabPage(database: "custom.sql"),
         Stack( // add vocabulary Button
           alignment: Alignment.bottomRight,
           children: [

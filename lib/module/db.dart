@@ -12,16 +12,16 @@ class Vocabulary{
 }// schema
 
 class Db{
-  static Future<Database> accessDatabase() async{
-    String dbPath = join(await getDatabasesPath(), 'words.sql');
+  static Future<Database> accessDatabase(String dbName) async{
+    String dbPath = join(await getDatabasesPath(), dbName);
 
-    var exists = false;
+    var exists = await databaseExists(dbPath);
     if (!exists)
     {
       try {
         await Directory(dirname(dbPath)).create(recursive: true);
       } catch (_) {}
-	    ByteData data = await rootBundle.load(join("assets", "words.sql"));
+	    ByteData data = await rootBundle.load(join("assets", dbName));
       List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
       await File(dbPath).writeAsBytes(bytes, flush: true);
 	  }
@@ -36,9 +36,13 @@ class VocabDistributor{
   bool hasData = false;
   static List<Vocabulary> list = [];
 
+  // select database
+  String database;
+  VocabDistributor({required this.database});
+
   Future<List<Vocabulary>> getAllVocab() async {
     if (!hasData || dirty) {
-      var db = await Db.accessDatabase();
+      var db = await Db.accessDatabase(database);
       List<Map<String, dynamic>> allVocab = await db.rawQuery("select * from vocab");
       list = List.generate(allVocab.length, (int index) {
         var row = allVocab[index];
@@ -65,7 +69,7 @@ class VocabDistributor{
   }
 
   Future<List<Vocabulary>> search(String target) async{
-    var db = await Db.accessDatabase();
+    var db = await Db.accessDatabase(database);
     List<Map<String, dynamic>> vocabs = await db.rawQuery("select * from vocab where word like $target or trans like $target");
 
     return List.generate(vocabs.length, (index) {

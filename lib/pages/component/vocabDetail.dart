@@ -3,23 +3,25 @@ import 'package:wordy/module/db.dart';
 
 class VocabDetailPage extends StatefulWidget{
   final int id;
-  const VocabDetailPage(this.id, {Key? key}) : super(key: key);
+  final String database;
+  const VocabDetailPage(this.id, {required this.database, Key? key}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => _VocabDetailPage(id);
+  State<StatefulWidget> createState() => _VocabDetailPage(id, database: database);
 }
 
 class _VocabDetailPage extends State<VocabDetailPage>{
   int initPage = 0;
   PageController controller = PageController(initialPage: 2);
+  String database;
 
-  _VocabDetailPage(int id){
+  _VocabDetailPage(int id, {required this.database}){
     initPage = id;
     controller = PageController(initialPage: initPage);
   }
 
   Future<List<Vocabulary>> getAllVocab() async{
-    return await VocabDistributor().getAllVocab();
+    return await VocabDistributor(database: database).getAllVocab();
   }
 
   @override
