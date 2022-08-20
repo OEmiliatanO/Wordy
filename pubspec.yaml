@@ -59,7 +59,7 @@ flutter:
 
   assets:
     - assets/builtin.sql
-    - assets/custom.sql
+    - assets/user.sql
   # To add module to your application, add an module section, like this:
   # module:
   #   - images/a_dot_burr.jpeg
@@ -71,7 +71,7 @@ flutter:
   # For details regarding adding module from package dependencies, see
   # https://flutter.dev/assets-and-images/#from-packages
 
-  # To add custom.sql fonts to your application, add a fonts section here,
+  # To add user.sql fonts to your application, add a fonts section here,
   # in this "flutter" section. Each entry in this list should have a
   # "family" key with the font family name, and a "fonts" key with a
   # list giving the asset and other descriptors for the font. For

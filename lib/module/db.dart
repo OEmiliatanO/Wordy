@@ -3,88 +3,97 @@ import 'package:flutter/services.dart';
 import 'package:path/path.dart';
 import 'package:sqflite/sqflite.dart';
 
-class Vocabulary{
-  int id = 0;
-  String word = "", pos = "", trans = "", meaning = "";
-  List<String> examples = [];
+class DB{
+  static late Database db;
+  static bool hasData = false;
 
-  Vocabulary(this.id, this.word, this.pos, this.trans, this.meaning, this.examples);
-}// schema
+  static Future<Database> initDatabase() {
+    // TODO: implement initDatabase
+    throw UnimplementedError();
+  }
 
-class Db{
-  static Future<Database> accessDatabase(String dbName) async{
-    String dbPath = join(await getDatabasesPath(), dbName);
+  static Future<Database> accessDatabase() {
+    // TODO: implement accessDatabase
+    throw UnimplementedError();
+  }
 
-    var exists = await databaseExists(dbPath);
-    if (!exists)
-    {
-      try {
-        await Directory(dirname(dbPath)).create(recursive: true);
-      } catch (_) {}
-	    ByteData data = await rootBundle.load(join("assets", dbName));
-      List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
-      await File(dbPath).writeAsBytes(bytes, flush: true);
-	  }
-
-    return await openDatabase(dbPath);
+  static void flush() {
+    // TODO: implement flush
   }
 }
 
-class VocabDistributor{
-  // all vocab cache
-  bool dirty = false;
-  bool hasData = false;
-  static List<Vocabulary> list = [];
+class UserDb extends DB{
+  static late Database db;
+  static bool hasData = false;
 
-  // select database
-  String database;
-  VocabDistributor({required this.database});
+  static Future<Database> initDatabase() async {
+    var dbPath = await getDatabasesPath();
+    var path = join(dbPath, "user.sql");
 
-  Future<List<Vocabulary>> getAllVocab() async {
-    if (!hasData || dirty) {
-      var db = await Db.accessDatabase(database);
-      List<Map<String, dynamic>> allVocab = await db.rawQuery("select * from vocab");
-      list = List.generate(allVocab.length, (int index) {
-        var row = allVocab[index];
-        return Vocabulary(
-            row["id"],
-            row["word"],
-            row["pos"] ?? "",
-            row["trans"] ?? "",
-            row["meaning"] ?? "",
-            [
-              row["example1"] ?? "",
-              row["example2"] ?? "",
-              row["example3"] ?? "",
-              row["example4"] ?? "",
-              row["example5"] ?? "",
-            ]
-        );
-      });
-      hasData = true;
-      dirty = false;
+    var exists = await databaseExists(path);
+    if (!exists){
+      db = await openDatabase(
+        join(path),
+        onCreate: (db, version) {
+          return db.execute("create table vocab(word TEXT,pos TEXT,trans TEXT,meaning TEXT,example1 TEXT,example2 TEXT,example3 TEXT,example4 TEXT,example5 TEXT)");
+        },
+        version: 2,
+      );
+    }
+    else {
+      db = await openDatabase(path);
     }
 
-    return list;
+    hasData = true;
+    return db;
   }
 
-  Future<List<Vocabulary>> search(String target) async{
-    var db = await Db.accessDatabase(database);
-    List<Map<String, dynamic>> vocabs = await db.rawQuery("select * from vocab where word like $target or trans like $target");
-
-    return List.generate(vocabs.length, (index) {
-      var row = vocabs[index];
-      return Vocabulary(row["id"], row["word"], row["pos"], row["trans"], row["meaning"], row["examples"]);
-    });
+  static Future<Database> accessDatabase() async {
+    if (hasData) {
+      return db;
+    } else {
+      return await initDatabase();
+    }
   }
 
-  // TODO: update the database
-  void update(Vocabulary target) async{
-    dirty = true;
-  }
-
-  void flushVocab(){
+  static void flush() {
     hasData = false;
-    dirty = false;
+  }
+}
+
+class BuiltinDb extends DB{
+  static late Database db;
+  static bool hasData = false;
+
+  static Future<Database> initDatabase() async {
+    var dbPath = await getDatabasesPath();
+    var path = join(dbPath, "builtin.sql");
+
+    await deleteDatabase(path);
+
+    try {
+      await Directory(dirname(path)).create(recursive: true);
+    } catch (_) {}
+
+    // Copy from asset
+    ByteData data = await rootBundle.load(join("assets", "builtin.sql"));
+    List<int> bytes = data.buffer.asUint8List(data.offsetInBytes, data.lengthInBytes);
+    await File(path).writeAsBytes(bytes, flush: true);
+
+    db = await openDatabase(path);
+    hasData = true;
+    return db;
+  }
+
+  static Future<Database> accessDatabase() async {
+    if (hasData) {
+      return db;
+    } else {
+      return await initDatabase();
+    }
+  }
+
+  static void flush() {
+    hasData = false;
   }
 }

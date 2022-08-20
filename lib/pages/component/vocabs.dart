@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:wordy/module/db.dart';
+import 'package:wordy/module/vocabDistributor.dart';
+import 'package:wordy/module/vocabulary.dart';
 import 'package:wordy/pages/component/vocabDetail.dart';
+
 
 class VocabPage extends StatelessWidget{
   final String database;
   const VocabPage({required this.database, Key? key}) : super(key: key);
 
   Future<List<Vocabulary>> getAllVocab() async{
-    return await VocabDistributor(database: database).getAllVocab();
+    return await VocabDistributor.getAllVocab(source: database);
   }
 
   @override

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:wordy/module/db.dart';
+import 'package:wordy/module/vocabDistributor.dart';
+import 'package:wordy/module/vocabulary.dart';
 
 class VocabDetailPage extends StatefulWidget{
   final int id;
@@ -21,7 +22,7 @@ class _VocabDetailPage extends State<VocabDetailPage>{
   }
 
   Future<List<Vocabulary>> getAllVocab() async{
-    return await VocabDistributor(database: database).getAllVocab();
+    return await VocabDistributor.getAllVocab(source: database);
   }
 
   @override

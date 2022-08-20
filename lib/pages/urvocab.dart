@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:wordy/pages/component/vocabs.dart';
+import 'package:wordy/pages/addnew.dart';
 
 class UrVocab extends StatelessWidget {
   const UrVocab({Key? key}) : super(key: key);
@@ -16,15 +17,14 @@ class UrVocab extends StatelessWidget {
             style: TextStyle(color: Colors.grey, fontSize: 25.0),
           ),
         ),
-        const VocabPage(database: "custom.sql"),
+        const VocabPage(database: "user.sql"),
         Stack( // add vocabulary Button
           alignment: Alignment.bottomRight,
           children: [
             ElevatedButton.icon(
               icon: const Icon(Icons.add),
               label: const Text("新增單字"),
-              // TODO: implement add page
-              onPressed: () { },
+              onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) => const AddNewPage())); },
             )
           ],
         ),

@@ -1,4 +1,4 @@
-# wordy
+# Wordy
 
 Wordy is my first app project written by flutter.
 It is used to memorize English vocabularies for chinese users.
@@ -17,8 +17,8 @@ This is the built-in vocabularies page. I will add more words with versioning.
 
 ![](https://i.imgur.com/Slevn9E.png)
 
-## the development status now
+## TODO list
 - The home page isn't implemented. I think home page can just put a random word picked from built-in vocabularies or client vocabularies.
-- ~~Haven't separate the database now, just for now.~~ Have done it.
-- Haven't implemented the "add word" page.
-- the UI need improvement.
+- The UI need improvement.
+- Haven't implement modifying user's vocabulary.
+- Haven't implement searching words.
