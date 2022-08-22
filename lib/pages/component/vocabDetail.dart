@@ -45,69 +45,51 @@ class _VocabDetailPage extends State<VocabDetailPage>{
                 itemCount: list!.length,
                 itemBuilder: (context, index) {
                 var vocab = list[index];
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 40),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 40, 40, 0),
-                          child: Row(
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    vocab.word,
-                                    style: const TextStyle(
-                                      fontSize: 30,
-                                      fontFamily: "NixieOne",
-                                    ),
-                                  ),
-                                ),
-                                Padding(
-                                    padding: const EdgeInsets.fromLTRB(20, 5.5, 0, 0),
-                                  child: Text("(${vocab.pos})"),
-                                ),
-                              ]
-                          ),
-                        ), // word
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
-                          child: Row(
+                return Padding(
+                  padding: const EdgeInsets.all(20),
+                  child: ListView(
+                    children: [
+                      Center(
+                        child: Row(
                             children: [
                               Flexible(
                                 child: Text(
-                                  vocab.trans,
+                                  vocab.word,
                                   style: const TextStyle(
-                                    fontSize: 20
+                                    fontSize: 30,
+                                    fontFamily: "NixieOne",
                                   ),
-                                )
+                                ),
+                              ),
+                              Padding(
+                                  padding: const EdgeInsets.fromLTRB(20, 5.5, 0, 0),
+                                child: Text("(${vocab.pos})"),
                               ),
                             ]
-                          ),
-                        ), // translation
-                        Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
-                          child: Row(
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    "definition:\n${vocab.meaning}.",
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: "NixieOne",
-                                    ),
-                                  ),
+                        ),
+                      ), // word
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 10, 0, 0),
+                        child: Row(
+                          children: [
+                            Flexible(
+                              child: Text(
+                                vocab.trans,
+                                style: const TextStyle(
+                                  fontSize: 20
                                 ),
-                              ]
-                          ),
-                        ), // definition
-                        if (vocab.examples[0] != "") Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
-                          child: Row(
+                              )
+                            ),
+                          ]
+                        ),
+                      ), // translation
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
+                        child: Row(
                             children: [
                               Flexible(
                                 child: Text(
-                                  "- ${vocab.examples[0]}",
+                                  "definition: ${vocab.meaning}",
                                   style: const TextStyle(
                                     fontSize: 20,
                                     fontFamily: "NixieOne",
@@ -115,80 +97,95 @@ class _VocabDetailPage extends State<VocabDetailPage>{
                                 ),
                               ),
                             ]
-                          ),
-                        ), // example0
-                        if (vocab.examples[1] != "") Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
-                          child: Row(
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    "- ${vocab.examples[1]}",
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: "NixieOne",
-                                    ),
-                                  ),
-                                ),
-                              ]
-                          ),
-                        ), // example1
-                        if (vocab.examples[2] != "") Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
-                          child: Row(
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    "- ${vocab.examples[2]}",
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: "NixieOne",
-                                    ),
-                                  ),
-                                ),
-                              ]
-                          ),
-                        ), // example2
-                        if (vocab.examples[3] != "") Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
-                          child: Row(
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    "- ${vocab.examples[3]}",
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: "NixieOne",
-                                    ),
-                                  ),
-                                ),
-                              ]
-                          ),
-                        ), // example3
-                        if (vocab.examples[4] != "") Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
-                          child: Row(
-                              children: [
-                                Flexible(
-                                  child: Text(
-                                    "- ${vocab.examples[4]}",
-                                    style: const TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: "NixieOne",
-                                    ),
-                                  ),
-                                ),
-                              ]
-                          ),
-                        ), // example4
-                        if (database == "user.sql") ElevatedButton(
-                          onPressed: () {
-                            Navigator.push(context, MaterialPageRoute(builder: (context) => ModifyPage((){ setState(() {}); widget._callback(); },vocab: vocab)));
-                          },
-                          child: const Text("修改內容"),
                         ),
-                      ],
-                    ),
+                      ), // definition
+                      if (vocab.examples[0] != "") Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
+                        child: Row(
+                          children: [
+                            Flexible(
+                              child: Text(
+                                "- ${vocab.examples[0]}",
+                                style: const TextStyle(
+                                  fontSize: 20,
+                                  fontFamily: "NixieOne",
+                                ),
+                              ),
+                            ),
+                          ]
+                        ),
+                      ), // example0
+                      if (vocab.examples[1] != "") Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
+                        child: Row(
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  "- ${vocab.examples[1]}",
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: "NixieOne",
+                                  ),
+                                ),
+                              ),
+                            ]
+                        ),
+                      ), // example1
+                      if (vocab.examples[2] != "") Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
+                        child: Row(
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  "- ${vocab.examples[2]}",
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: "NixieOne",
+                                  ),
+                                ),
+                              ),
+                            ]
+                        ),
+                      ), // example2
+                      if (vocab.examples[3] != "") Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
+                        child: Row(
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  "- ${vocab.examples[3]}",
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: "NixieOne",
+                                  ),
+                                ),
+                              ),
+                            ]
+                        ),
+                      ), // example3
+                      if (vocab.examples[4] != "") Padding(
+                        padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
+                        child: Row(
+                            children: [
+                              Flexible(
+                                child: Text(
+                                  "- ${vocab.examples[4]}",
+                                  style: const TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: "NixieOne",
+                                  ),
+                                ),
+                              ),
+                            ]
+                        ),
+                      ), // example4
+                      if (database == "user.sql") ElevatedButton(
+                        onPressed: () {
+                          Navigator.push(context, MaterialPageRoute(builder: (context) => ModifyPage((){ setState(() {}); widget._callback(); },vocab: vocab)));
+                        },
+                        child: const Text("修改內容"),
+                      ),
+                    ],
                   ),
                 );
               })

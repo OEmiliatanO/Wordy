@@ -35,7 +35,7 @@ class Home extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 15.0),
+                  padding: const EdgeInsets.fromLTRB(17, 5.5, 0, 0),
                   child: Text(
                     vocab.trans,
                     style: const TextStyle(
