@@ -47,7 +47,7 @@ class NavState extends State<Nav>{
               ),
             ),
             ListTile(
-              title: const Text('Word of a day'),
+              title: const Text('Word Of a Day'),
               onTap: () => tap(0),
             ),
             ListTile(

@@ -181,7 +181,6 @@ class _VocabDetailPage extends State<VocabDetailPage>{
                               ]
                           ),
                         ), // example4
-                        // TODO: add more examples
                         if (database == "user.sql") ElevatedButton(
                           onPressed: () {
                             Navigator.push(context, MaterialPageRoute(builder: (context) => ModifyPage((){ setState(() {}); widget._callback(); },vocab: vocab)));

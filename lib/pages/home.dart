@@ -11,36 +11,49 @@ class Home extends StatelessWidget {
       padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          Row(
-            children: [
-              Flexible(
-                child: Text(
-                  vocab.word,
-                  style: const TextStyle(
-                    fontSize: 30,
-                    fontFamily: "NixieOne",
+          const Flexible(
+              child: Text(
+                "Word Of a Day",
+                style: TextStyle(
+                  fontSize: 40,
+                  fontFamily: "NixieOne",
+                  decoration: TextDecoration.underline,
+                ),
+              )
+          ),
+          Padding(
+            padding: const EdgeInsets.only(top: 40),
+            child: Row(
+              children: [
+                Flexible(
+                  child: Text(
+                    vocab.word,
+                    style: const TextStyle(
+                      fontSize: 30,
+                      fontFamily: "NixieOne",
+                    ),
                   ),
                 ),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(left: 15.0),
-                child: Text(
-                  vocab.trans,
-                  style: const TextStyle(
-                    fontSize: 20,
+                Padding(
+                  padding: const EdgeInsets.only(left: 15.0),
+                  child: Text(
+                    vocab.trans,
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
 
           Flexible(
               child: Padding(
-                padding: const EdgeInsets.only(top: 20.0),
+                padding: const EdgeInsets.only(top: 30.0),
                 child: Text(
                   "${vocab.meaning}.",
                   style: const TextStyle(
-                    fontSize: 20,
+                    fontSize: 19,
                     fontFamily: "NixieOne"
                   ),
                 ),
@@ -48,11 +61,11 @@ class Home extends StatelessWidget {
           ),
           Flexible(
             child: Padding(
-              padding: const EdgeInsets.only(top: 30),
+              padding: const EdgeInsets.only(top: 40),
               child: Text(
                 "- ${vocab.examples[0]}",
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 19,
                   fontFamily: "NixieOne",
                 ),
               ),

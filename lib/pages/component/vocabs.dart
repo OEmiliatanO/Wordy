@@ -10,7 +10,6 @@ class VocabPage extends StatefulWidget {
 
   @override
   State<StatefulWidget> createState() => _VocabPageState(database: database);
-
 }
 
 class _VocabPageState extends State<VocabPage> {
