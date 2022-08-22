@@ -8,18 +8,55 @@ class Home extends StatelessWidget {
   Widget build(BuildContext context) {
     var vocab = VocabDistributor.randPick();
     return Padding(
-      padding: const EdgeInsets.all(50),
+      padding: const EdgeInsets.all(20),
       child: Column(
         children: [
-          Text(
-            vocab.word,
-            style: const TextStyle(
-              fontSize: 35,
-              fontFamily: "NixieOne",
-            ),
+          Row(
+            children: [
+              Flexible(
+                child: Text(
+                  vocab.word,
+                  style: const TextStyle(
+                    fontSize: 30,
+                    fontFamily: "NixieOne",
+                  ),
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.only(left: 15.0),
+                child: Text(
+                  vocab.trans,
+                  style: const TextStyle(
+                    fontSize: 20,
+                  ),
+                ),
+              ),
+            ],
           ),
-          Text(
-            vocab.trans,
+
+          Flexible(
+              child: Padding(
+                padding: const EdgeInsets.only(top: 20.0),
+                child: Text(
+                  "${vocab.meaning}.",
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontFamily: "NixieOne"
+                  ),
+                ),
+              )
+          ),
+          Flexible(
+            child: Padding(
+              padding: const EdgeInsets.only(top: 30),
+              child: Text(
+                "- ${vocab.examples[0]}",
+                style: const TextStyle(
+                  fontSize: 20,
+                  fontFamily: "NixieOne",
+                ),
+              ),
+            ),
           ),
         ],
       ),

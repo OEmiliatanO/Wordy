@@ -135,6 +135,6 @@ class VocabDistributor{
 
   static Vocabulary randPick() {
     // TODO: randomly pick a vocabulary
-    return Vocabulary(0, "determination", "(n.)", "決心", "The strong willing to do something", ["I've the determination to complete the task."]);
+    return Vocabulary(0, "determination", "(n.)", "決心", "the ability to continue trying to do something, although it is very difficult", ["It's not gift but determination."]);
   }
 }

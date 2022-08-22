@@ -43,11 +43,11 @@ class NavState extends State<Nav>{
                 decoration: BoxDecoration(
                   color: Colors.blue,
                 ),
-                child: Text('Drawer Header'),
+                child: Text('Menu'),
               ),
             ),
             ListTile(
-              title: const Text('home'),
+              title: const Text('Word of a day'),
               onTap: () => tap(0),
             ),
             ListTile(

@@ -17,7 +17,11 @@ This is the built-in vocabularies page. I will add more words with versioning.
 
 ![](https://i.imgur.com/Slevn9E.png)
 
+## development detail
+TBW...
+
 ## TODO list
 - The home page isn't implemented randomly pick a word from database.
 - The UI need improvement.
-- Haven't implement searching words.
+- Haven't implement searching.
+- Haven't implement delete.

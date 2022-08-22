@@ -101,7 +101,7 @@ class _VocabDetailPage extends State<VocabDetailPage>{
                               ]
                           ),
                         ), // definition
-                        Padding(
+                        if (vocab.examples[0] != "") Padding(
                           padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
                           child: Row(
                             children: [
@@ -117,6 +117,70 @@ class _VocabDetailPage extends State<VocabDetailPage>{
                             ]
                           ),
                         ), // example0
+                        if (vocab.examples[1] != "") Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
+                          child: Row(
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    "- ${vocab.examples[1]}",
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: "NixieOne",
+                                    ),
+                                  ),
+                                ),
+                              ]
+                          ),
+                        ), // example1
+                        if (vocab.examples[2] != "") Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
+                          child: Row(
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    "- ${vocab.examples[2]}",
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: "NixieOne",
+                                    ),
+                                  ),
+                                ),
+                              ]
+                          ),
+                        ), // example2
+                        if (vocab.examples[3] != "") Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
+                          child: Row(
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    "- ${vocab.examples[3]}",
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: "NixieOne",
+                                    ),
+                                  ),
+                                ),
+                              ]
+                          ),
+                        ), // example3
+                        if (vocab.examples[4] != "") Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 20, 20, 0),
+                          child: Row(
+                              children: [
+                                Flexible(
+                                  child: Text(
+                                    "- ${vocab.examples[4]}",
+                                    style: const TextStyle(
+                                      fontSize: 20,
+                                      fontFamily: "NixieOne",
+                                    ),
+                                  ),
+                                ),
+                              ]
+                          ),
+                        ), // example4
                         // TODO: add more examples
                         if (database == "user.sql") ElevatedButton(
                           onPressed: () {
