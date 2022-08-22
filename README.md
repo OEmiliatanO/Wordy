@@ -17,7 +17,8 @@ This is the detailed vocabulary page. It has "word", "part of speech", "translat
 And user can modify the info of this vocabulary.
 
 - The detailed vocabulary page:
-![](https://i.imgur.com/zzDNYT1.png)
+
+![](https://i.imgur.com/jjkIEk9.png)
 
 This is the built-in vocabularies page. I will add more words with versioning.
 
