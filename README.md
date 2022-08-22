@@ -1,6 +1,6 @@
 # Wordy
 
-Wordy is my first app project written by flutter.
+Wordy is my first app project written in flutter.
 It is used to memorize English vocabularies for chinese users.
 
 This is user's vocabulary page. User can record a new word in daily life.
