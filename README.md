@@ -18,7 +18,6 @@ This is the built-in vocabularies page. I will add more words with versioning.
 ![](https://i.imgur.com/Slevn9E.png)
 
 ## TODO list
-- The home page isn't implemented. I think home page can just put a random word picked from built-in vocabularies or client vocabularies.
+- The home page isn't implemented randomly pick a word from database.
 - The UI need improvement.
-- Haven't implement modifying user's vocabulary.
 - Haven't implement searching words.

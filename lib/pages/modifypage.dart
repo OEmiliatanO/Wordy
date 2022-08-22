@@ -6,19 +6,32 @@ typedef Callback = void Function();
 
 class VocabForm extends StatefulWidget{
   final Callback _callback;
-  const VocabForm(this._callback, {Key? key}) : super(key: key);
+  final Vocabulary vocab;
+  const VocabForm(this._callback, this.vocab, {Key? key}) : super(key: key);
 
   @override
-  State<VocabForm> createState() => _FormState();
+  State<VocabForm> createState() => _FormState(vocab);
 }
 
 enum ContrId { word,pos,trans,meaning,example1,example2,example3,example4,example5 }
 class _FormState extends State<VocabForm>{
   final _controllers = List.generate(9, (index) => TextEditingController());
   final _formKey = GlobalKey<FormState>();
+  final Vocabulary vocab;
+  _FormState(this.vocab);
 
   @override
   Widget build(BuildContext context) {
+    _controllers[ContrId.word.index].text = vocab.word;
+    _controllers[ContrId.pos.index].text = vocab.pos;
+    _controllers[ContrId.trans.index].text = vocab.trans;
+    _controllers[ContrId.meaning.index].text = vocab.meaning;
+    _controllers[ContrId.example1.index].text = vocab.examples[0];
+    _controllers[ContrId.example2.index].text = vocab.examples[1];
+    _controllers[ContrId.example3.index].text = vocab.examples[2];
+    _controllers[ContrId.example4.index].text = vocab.examples[3];
+    _controllers[ContrId.example5.index].text = vocab.examples[4];
+
     return Form(
       key: _formKey,
       child: Padding(
@@ -87,22 +100,22 @@ class _FormState extends State<VocabForm>{
                   child: Text("+新增"),
                 ),
                 onPressed: () {
-                  VocabDistributor.insert(
-                    source: "user.sql",
-                    vocab: Vocabulary(
-                      VocabDistributor.getuDataNumber() + 1,
-                      "\"${_controllers[ContrId.word.index].text}\"",
-                      "\"${_controllers[ContrId.pos.index].text}\"",
-                      "\"${_controllers[ContrId.trans.index].text}\"",
-                      "\"${_controllers[ContrId.meaning.index].text}\"",
-                      [
-                        "\"${_controllers[ContrId.example1.index].text}\"",
-                        "\"${_controllers[ContrId.example2.index].text}\"",
-                        "\"${_controllers[ContrId.example3.index].text}\"",
-                        "\"${_controllers[ContrId.example4.index].text}\"",
-                        "\"${_controllers[ContrId.example5.index].text}\"",
-                      ]
-                    )
+                  VocabDistributor.update(
+                      source: "user.sql",
+                      vocab: Vocabulary(
+                          vocab.id,
+                          "\"${_controllers[ContrId.word.index].text}\"",
+                          "\"${_controllers[ContrId.pos.index].text}\"",
+                          "\"${_controllers[ContrId.trans.index].text}\"",
+                          "\"${_controllers[ContrId.meaning.index].text}\"",
+                          [
+                            "\"${_controllers[ContrId.example1.index].text}\"",
+                            "\"${_controllers[ContrId.example2.index].text}\"",
+                            "\"${_controllers[ContrId.example3.index].text}\"",
+                            "\"${_controllers[ContrId.example4.index].text}\"",
+                            "\"${_controllers[ContrId.example5.index].text}\"",
+                          ]
+                      )
                   );
                   widget._callback();
 
@@ -118,19 +131,21 @@ class _FormState extends State<VocabForm>{
   }
 }
 
-class AddNewPage extends StatelessWidget{
+
+class ModifyPage extends StatelessWidget{
+  final Vocabulary vocab;
   final Callback callback;
-  const AddNewPage(this.callback, {Key? key}) : super(key: key);
+  const ModifyPage(this.callback, {required this.vocab, Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text(
-          "新增單字",
+          "修改單字內容",
         ),
       ),
-      body: VocabForm(callback),
+      body: VocabForm(callback, vocab),
     );
   }
 

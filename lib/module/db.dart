@@ -19,6 +19,7 @@ class DB{
 
   static void flush() {
     // TODO: implement flush
+    throw UnimplementedError();
   }
 }
 
@@ -30,12 +31,13 @@ class UserDb extends DB{
     var dbPath = await getDatabasesPath();
     var path = join(dbPath, "user.sql");
 
+    // await deleteDatabase(path);
     var exists = await databaseExists(path);
     if (!exists){
       db = await openDatabase(
         join(path),
         onCreate: (db, version) {
-          return db.execute("create table vocab(word TEXT,pos TEXT,trans TEXT,meaning TEXT,example1 TEXT,example2 TEXT,example3 TEXT,example4 TEXT,example5 TEXT)");
+          return db.execute("create table vocab(id INTEGER PRIMARY KEY,word TEXT,pos TEXT,trans TEXT,meaning TEXT,example1 TEXT,example2 TEXT,example3 TEXT,example4 TEXT,example5 TEXT)");
         },
         version: 2,
       );

@@ -16,17 +16,18 @@ class Cache{
       list = List.generate(allVocab.length, (int index) {
         var row = allVocab[index];
         return Vocabulary(
-            row["word"],
-            row["pos"] ?? "",
-            row["trans"] ?? "",
-            row["meaning"] ?? "",
-            [
-              row["example1"] ?? "",
-              row["example2"] ?? "",
-              row["example3"] ?? "",
-              row["example4"] ?? "",
-              row["example5"] ?? "",
-            ]
+          row["id"],
+          row["word"],
+          row["pos"] ?? "",
+          row["trans"] ?? "",
+          row["meaning"] ?? "",
+          [
+            row["example1"] ?? "",
+            row["example2"] ?? "",
+            row["example3"] ?? "",
+            row["example4"] ?? "",
+            row["example5"] ?? "",
+          ]
         );
       });
       hasData = true;
@@ -35,8 +36,16 @@ class Cache{
     return list;
   }
 
+  int lengthOfData(Future<Database> source) {
+    return list.length;
+  }
+
   void setDirty() {
     dirty = true;
+  }
+
+  bool needRefresh(){
+    return dirty;
   }
 
   void flush() {
@@ -70,13 +79,13 @@ class VocabDistributor{
 
     return List.generate(vocabs.length, (index) {
       var row = vocabs[index];
-      return Vocabulary(row["word"], row["pos"], row["trans"], row["meaning"],
+      return Vocabulary(row["id"], row["word"], row["pos"], row["trans"], row["meaning"],
           [row["example1"], row["example2"], row["example3"], row["example4"], row["example5"]]
       );
     });
   }
 
-  static void update({required String source, required Vocabulary vocab}) async{
+  static void insert({required String source, required Vocabulary vocab}) async {
     Database db;
 
     if (source == "builtin.sql") {
@@ -87,13 +96,45 @@ class VocabDistributor{
       db = await UserDb.accessDatabase();
     }
 
-    await db.rawInsert("insert into vocab values(${vocab.word}, ${vocab.pos}, ${vocab.trans}, ${vocab.meaning}, ${vocab.examples[0]}, ${vocab.examples[1]}, ${vocab.examples[2]}, ${vocab.examples[3]}, ${vocab.examples[4]})");
+    await db.rawInsert("insert into vocab values(${vocab.id}, ${vocab.word}, ${vocab.pos}, ${vocab.trans}, ${vocab.meaning}, ${vocab.examples[0]}, ${vocab.examples[1]}, ${vocab.examples[2]}, ${vocab.examples[3]}, ${vocab.examples[4]})");
   }
 
-  static void flushuCache(){
+  static void update({required String source, required Vocabulary vocab}) async {
+    Database db;
+
+    if (source == "builtin.sql") {
+      bCache.setDirty();
+      db = await BuiltinDb.accessDatabase();
+    } else {
+      uCache.setDirty();
+      db = await UserDb.accessDatabase();
+    }
+
+    await db.rawUpdate("update vocab set word=${vocab.word},pos=${vocab.pos},trans=${vocab.trans},meaning=${vocab.meaning},example1=${vocab.examples[0]},example2=${vocab.examples[1]},example3=${vocab.examples[2]},example4=${vocab.examples[3]},example5=${vocab.examples[4]} where id=${vocab.id}");
+  }
+
+  static void flushuCache() {
     uCache.flush();
   }
-  static void flushbCache(){
+  static void flushbCache() {
     bCache.flush();
+  }
+
+  static int getuDataNumber() {
+    if (uCache.needRefresh()) {
+      uCache.getAllVocab(UserDb.accessDatabase());
+    }
+    return uCache.lengthOfData(UserDb.accessDatabase());
+  }
+  static int getbDataNumber() {
+    if (bCache.needRefresh()) {
+      bCache.getAllVocab(UserDb.accessDatabase());
+    }
+    return bCache.lengthOfData(BuiltinDb.accessDatabase());
+  }
+
+  static Vocabulary randPick() {
+    // TODO: randomly pick a vocabulary
+    return Vocabulary(0, "determination", "(n.)", "決心", "The strong willing to do something", ["I've the determination to complete the task."]);
   }
 }

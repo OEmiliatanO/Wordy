@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:wordy/nav/nav.dart';
-import 'package:sqflite/sqflite.dart';
 
 void main() {
   runApp(const MyApp());
