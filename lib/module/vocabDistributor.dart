@@ -1,11 +1,13 @@
 import 'package:sqflite/sqflite.dart';
 import 'package:wordy/module/vocabulary.dart';
 import 'package:wordy/module/db.dart';
+import 'dart:math';
 
 class Cache{
   bool dirty = false;
   bool hasData = false;
   List<Vocabulary> list = [];
+  Vocabulary randomOne = Vocabulary(0, "", "", "", "", ["","","","",""]);
   late Database db;
 
   Future<List<Vocabulary>> getAllVocab(Future<Database> source) async {
@@ -32,6 +34,7 @@ class Cache{
       });
       hasData = true;
       dirty = false;
+      randomOne = list[Random().nextInt(list.length)];
     }
     return list;
   }
@@ -46,6 +49,10 @@ class Cache{
 
   bool needRefresh(){
     return dirty;
+  }
+
+  bool hasdata(){
+    return hasData;
   }
 
   void flush() {
@@ -134,7 +141,16 @@ class VocabDistributor{
   }
 
   static Vocabulary randPick() {
-    // TODO: randomly pick a vocabulary
-    return Vocabulary(0, "determination", "(n.)", "決心", "the ability to continue trying to do something, although it is very difficult", ["It's not gift but determination."]);
+    if (Random().nextInt(10000) % 2 == 0){
+      if (!uCache.hasdata()){
+        uCache.getAllVocab(UserDb.accessDatabase());
+      }
+      return uCache.randomOne;
+    }
+
+    if (!bCache.hasdata()){
+      bCache.getAllVocab(BuiltinDb.accessDatabase());
+    }
+    return bCache.randomOne;
   }
 }

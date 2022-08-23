@@ -27,7 +27,12 @@ class NavState extends State<Nav>{
   Widget build(BuildContext context){
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Wordy"),
+        title: const Text(
+          "Wordy",
+          style: TextStyle(
+            fontFamily: "LittlePat",
+          ),
+        ),
       ),
       body: IndexedStack(
         index: pageIdx,
@@ -43,19 +48,19 @@ class NavState extends State<Nav>{
                 decoration: BoxDecoration(
                   color: Colors.blue,
                 ),
-                child: Text('Menu'),
+                child: Text('Menu', style: TextStyle(fontFamily: "LittlePat"),),
               ),
             ),
             ListTile(
-              title: const Text('Word Of a Day'),
+              title: const Text('Word Of a Day', style: TextStyle(fontFamily: "LittlePat"),),
               onTap: () => tap(0),
             ),
             ListTile(
-              title: const Text('Your Vocabulary'),
+              title: const Text('Your Vocabulary', style: TextStyle(fontFamily: "LittlePat"),),
               onTap: () => tap(1),
             ),
             ListTile(
-              title: const Text('Built-in Vocabulary'),
+              title: const Text('Built-in Vocabulary', style: TextStyle(fontFamily: "LittlePat"),),
               onTap: () => tap(2),
             ),
           ],

@@ -43,11 +43,17 @@ class _FormState extends State<VocabForm>{
               decoration: const InputDecoration(
                 labelText: "單字",
               ),
+              style: const TextStyle(
+                fontFamily: "LittlePat",
+              ),
             ), // word
             TextField(
               controller: _controllers[ContrId.pos.index],
               decoration: const InputDecoration(
                 labelText: "詞性",
+              ),
+              style: const TextStyle(
+                fontFamily: "LittlePat",
               ),
             ), // pos
             TextField(
@@ -55,11 +61,17 @@ class _FormState extends State<VocabForm>{
               decoration: const InputDecoration(
                 labelText: "中文",
               ),
+              style: const TextStyle(
+                fontFamily: "LittlePat",
+              ),
             ), // trans
             TextField(
               controller: _controllers[ContrId.meaning.index],
               decoration: const InputDecoration(
                 labelText: "定義",
+              ),
+              style: const TextStyle(
+                fontFamily: "LittlePat",
               ),
             ), // meaning
             TextField(
@@ -67,11 +79,17 @@ class _FormState extends State<VocabForm>{
               decoration: const InputDecoration(
                 labelText: "例句",
               ),
+              style: const TextStyle(
+                fontFamily: "LittlePat",
+              ),
             ), // example1
             TextField(
               controller: _controllers[ContrId.example2.index],
               decoration: const InputDecoration(
                 labelText: "例句",
+              ),
+              style: const TextStyle(
+                fontFamily: "LittlePat",
               ),
             ), // example2
             TextField(
@@ -79,11 +97,17 @@ class _FormState extends State<VocabForm>{
               decoration: const InputDecoration(
                 labelText: "例句",
               ),
+              style: const TextStyle(
+                fontFamily: "LittlePat",
+              ),
             ), // example3
             TextField(
               controller: _controllers[ContrId.example4.index],
               decoration: const InputDecoration(
                 labelText: "例句",
+              ),
+              style: const TextStyle(
+                fontFamily: "LittlePat",
               ),
             ), // example4
             TextField(
@@ -91,13 +115,16 @@ class _FormState extends State<VocabForm>{
               decoration: const InputDecoration(
                 labelText: "例句",
               ),
+              style: const TextStyle(
+                fontFamily: "LittlePat",
+              ),
             ), // example5
             Padding(
               padding: const EdgeInsets.all(30),
               child: ElevatedButton(
                 child: const Padding(
                   padding: EdgeInsets.all(13),
-                  child: Text("+新增"),
+                  child: Text("修改"),
                 ),
                 onPressed: () {
                   VocabDistributor.update(

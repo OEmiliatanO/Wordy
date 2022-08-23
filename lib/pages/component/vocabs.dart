@@ -51,8 +51,8 @@ class _VocabPageState extends State<VocabPage> {
                                   child: Text(
                                     vocab.word,
                                     style: const TextStyle(
-                                      fontSize: 16,
-                                      fontFamily: "NixieOne",
+                                      fontSize: 14,
+                                      fontFamily: "LittlePat",
                                     ),
                                   ),
                                 ),
@@ -81,6 +81,7 @@ class _VocabPageState extends State<VocabPage> {
                         "no vocabulary currently",
                         style: TextStyle(
                           fontSize: 15,
+                          fontFamily: "LittlePat",
                         ),
                       )
                     )

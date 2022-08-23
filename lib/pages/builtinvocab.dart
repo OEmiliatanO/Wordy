@@ -12,7 +12,11 @@ class BuiltinVocab extends StatelessWidget {
           padding: EdgeInsets.fromLTRB(20.0, 10.0, 0, 0),
           child: Text(
             "Built-in Vocabulary",
-            style: TextStyle(color: Colors.grey, fontSize: 25.0),
+            style: TextStyle(
+              color: Colors.grey,
+              fontSize: 25.0,
+              fontFamily: "LittlePat",
+            ),
           ),
         ),
         VocabPage(database: "builtin.sql"),
