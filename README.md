@@ -88,4 +88,3 @@ These two are implemented by Form. When the button is pressed, they will insert 
 - The home page isn't implemented randomly pick a word from database.
 - The UI need improvement.
 - Haven't implement searching.
-- Haven't implement delete.

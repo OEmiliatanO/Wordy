@@ -36,6 +36,7 @@ class Cache{
       dirty = false;
       randomOne = list[Random().nextInt(list.length)];
     }
+    randomOne = list[Random().nextInt(list.length)];
     return list;
   }
 
@@ -67,6 +68,8 @@ class VocabDistributor{
 
   static Future<List<Vocabulary>> getAllVocab({required String source}) async {
     if (source == "builtin.sql") {
+      var db = await BuiltinDb.accessDatabase();
+      db.rawDelete("delete from vocab where id=0");
       return bCache.getAllVocab(BuiltinDb.accessDatabase());
     } else {
       return uCache.getAllVocab(UserDb.accessDatabase());
@@ -116,8 +119,21 @@ class VocabDistributor{
       uCache.setDirty();
       db = await UserDb.accessDatabase();
     }
-
     await db.rawUpdate("update vocab set word=${vocab.word},pos=${vocab.pos},trans=${vocab.trans},meaning=${vocab.meaning},example1=${vocab.examples[0]},example2=${vocab.examples[1]},example3=${vocab.examples[2]},example4=${vocab.examples[3]},example5=${vocab.examples[4]} where id=${vocab.id}");
+  }
+
+  static void delete({required String source, required Vocabulary vocab}) async {
+    Database db;
+
+    if (source == "builtin.sql") {
+      bCache.setDirty();
+      db = await BuiltinDb.accessDatabase();
+    } else {
+      uCache.setDirty();
+      db = await UserDb.accessDatabase();
+    }
+    //await db.rawDelete("delete from vocab where id=0");
+    await db.rawDelete("delete from vocab where id=${vocab.id}");
   }
 
   static void flushuCache() {
@@ -145,11 +161,16 @@ class VocabDistributor{
       if (!uCache.hasdata()){
         uCache.getAllVocab(UserDb.accessDatabase());
       }
+      if (uCache.randomOne.word == "")
+        print("uCache.randomOne.id=${uCache.randomOne.id}");
       return uCache.randomOne;
     }
 
     if (!bCache.hasdata()){
       bCache.getAllVocab(BuiltinDb.accessDatabase());
+    }
+    if (bCache.randomOne.word == "") {
+      print("bCache.randomOne.id=${bCache.randomOne.id}");
     }
     return bCache.randomOne;
   }
