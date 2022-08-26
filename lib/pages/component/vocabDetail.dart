@@ -111,24 +111,25 @@ class _VocabDetailPage extends State<VocabDetailPage> {
                               Row(
                                 children: [
                                   ElevatedButton(
-                                    onPressed: () {
-                                      Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                              builder: (context) => ModifyPage(() {
-                                                    setState(() {});
-                                                    widget._callback();
-                                                  }, vocab: vocab)));
-                                    },
-                                    child: const Text("修改內容"),
-                                  ),
-                                  ElevatedButton(
                                     onPressed: (){
                                       VocabDistributor.delete(source: "user.sql", vocab: vocab);
                                       widget._callback();
                                       Navigator.pop(context);
                                     },
                                     child: const Text("刪除"),
+                                  ),
+                                  const SizedBox(width: 5,),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) => ModifyPage(() {
+                                                setState(() {});
+                                                widget._callback();
+                                              }, vocab: vocab)));
+                                    },
+                                    child: const Text("修改內容"),
                                   ),
                                 ],
                               ),

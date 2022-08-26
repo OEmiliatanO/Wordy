@@ -7,24 +7,35 @@ This is user's vocabulary page. User can record a new word in daily life.
 
 - The user's vocabulary page:
 
-![](https://i.imgur.com/0s0m1GA.png)
+![](./assets/example/UrVocabularyPage.png)
 
 - The vocabulary adding page:
 
-![](https://i.imgur.com/R91w7uj.png)
+![](./assets/example/AddWordPage.png)
 
 This is the detailed vocabulary page. It has "word", "part of speech", "translation", "definition", and at most 5 examples showing how to use the word.
 And user can modify the info of this vocabulary.
 
 - The detailed vocabulary page:
 
-![](https://i.imgur.com/jjkIEk9.png)
+![](./assets/example/VocabularyDetailPage.png)
+
+And in user's detailed vocabulary page, user can modify this vocabulary.
+
+- The modifying page:
+
+![](./assets/example/ModifyPage.png)
 
 This is the built-in vocabularies page. I will add more words with versioning.
 
 - The built-in vocabulary page:
 
-![](https://i.imgur.com/TSBT3m5.png)
+![](./assets/example/Built-inVocabularyPage.png)
+
+And next is home page. It'll randomly pick a vocabulary from either built-in or user database.
+
+- The home page:
+![](./assets/example/HomePage.png)
 
 ## backend development detail
 I use [sqflite](https://pub.dev/packages/sqflite) as the backend database.
@@ -85,6 +96,5 @@ And later is [lib/pages/addnew.dart](https://github.com/OEmiliatanO/Wordy/blob/m
 These two are implemented by Form. When the button is pressed, they will insert a vocabulary and update a vocabulary.  
 
 ## TODO list
-- The home page isn't implemented randomly pick a word from database.
 - The UI need improvement.
 - Haven't implement searching.

@@ -7,14 +7,13 @@ class Cache{
   bool dirty = false;
   bool hasData = false;
   List<Vocabulary> list = [];
-  Vocabulary randomOne = Vocabulary(0, "", "", "", "", ["","","","",""]);
+  Vocabulary randomOne = Vocabulary(4, "bravery", "n.", "勇敢", "brave behaviour or actions", ["The sergeant was promoted for his bravery.","","","",""]);
   late Database db;
 
   Future<List<Vocabulary>> getAllVocab(Future<Database> source) async {
     if (!hasData || dirty) {
       db = await source;
-      List<Map<String, dynamic>> allVocab = await db.rawQuery(
-          "select * from vocab");
+      List<Map<String, dynamic>> allVocab = await db.rawQuery("select * from vocab");
       list = List.generate(allVocab.length, (int index) {
         var row = allVocab[index];
         return Vocabulary(
@@ -68,11 +67,9 @@ class VocabDistributor{
 
   static Future<List<Vocabulary>> getAllVocab({required String source}) async {
     if (source == "builtin.sql") {
-      var db = await BuiltinDb.accessDatabase();
-      db.rawDelete("delete from vocab where id=0");
-      return bCache.getAllVocab(BuiltinDb.accessDatabase());
+      return await bCache.getAllVocab(BuiltinDb.accessDatabase());
     } else {
-      return uCache.getAllVocab(UserDb.accessDatabase());
+      return await uCache.getAllVocab(UserDb.accessDatabase());
     }
   }
 
@@ -161,16 +158,11 @@ class VocabDistributor{
       if (!uCache.hasdata()){
         uCache.getAllVocab(UserDb.accessDatabase());
       }
-      if (uCache.randomOne.word == "")
-        print("uCache.randomOne.id=${uCache.randomOne.id}");
       return uCache.randomOne;
     }
 
     if (!bCache.hasdata()){
       bCache.getAllVocab(BuiltinDb.accessDatabase());
-    }
-    if (bCache.randomOne.word == "") {
-      print("bCache.randomOne.id=${bCache.randomOne.id}");
     }
     return bCache.randomOne;
   }
